@@ -69,17 +69,58 @@ A few incorrect labels at random
 
 ![incorrectresults](https://user-images.githubusercontent.com/19996897/39515265-359ca034-4e17-11e8-93e3-a44d3b114435.PNG)
 
-Most correct cats
 ![catsresults1](https://user-images.githubusercontent.com/19996897/39515268-35f98358-4e17-11e8-9558-f073248efe2e.PNG)
 
-Most correct dogs
 ![dogsresults1](https://user-images.githubusercontent.com/19996897/39515260-35213c6e-4e17-11e8-9153-98f9d6a16ac4.PNG)
 
-Most incorrect cats
 ![incorrectcats](https://user-images.githubusercontent.com/19996897/39515261-35497e40-4e17-11e8-9085-252367704824.PNG)
 
-Most incorrect dogs
 ![incorrectcats](https://user-images.githubusercontent.com/19996897/39515261-35497e40-4e17-11e8-9085-252367704824.PNG)
 
-Most uncertain predictions
 ![uncertain](https://user-images.githubusercontent.com/19996897/39515267-35cd4086-4e17-11e8-8eb4-18ece8186f0c.PNG)
+
+### Choosing a learning rate to reduce the training time and for getting better accuracy
+
+The learning rate determines how quickly or how slowly you want to update the weights (or parameters). Learning rate is one of the most difficult parameters to set, because it significantly affect model performance.If we take too higher learning rate the model will not converge and if we take too smaller rate the model will take forever to converge.So finding a proper learning rate would help in saving the time spent training the model.
+
+So we slowly increase the learning rate till our loss function starts becoming worse.We will get a graph like this
+
+![learningrate](https://user-images.githubusercontent.com/19996897/39516490-ba51d878-4e1a-11e8-8efe-15eaadf0af1d.PNG)
+
+We can also plot the graph of Learning rate vs Loss
+
+![learningratevsloss](https://user-images.githubusercontent.com/19996897/39516491-ba812a9c-4e1a-11e8-8000-da7dc3a00739.PNG)
+
+We can see the above plot of loss versus learning rate to see where our loss stops decreasing.The loss is still clearly improving at lr=1e-2 (0.01), so that's what we use here in this model.
+
+### Improving our model
+
+#### Data augmentation
+
+If you try training for more epochs, you'll notice that we start to overfit, which means that our model is learning to recognize the specific images in the training set, rather than generalizing such that we also get good results on the validation set. One way to fix this is to effectively create more data, through data augmentation. This refers to randomly changing the images in ways that shouldn't impact their interpretation, such as horizontal flipping, zooming, and rotating.
+
+Sample images after Zooming,flipping
+
+![dataaugmentation](https://user-images.githubusercontent.com/19996897/39517179-bf5aa1e0-4e1c-11e8-999f-44a13278c0c9.PNG)
+
+### Results after the above used techniques
+Training Error - 0.02305
+Validation accuracy - 0.989
+
+Our validation loss isn't improving much, so there's probably no point further training the last layer on its own.So we unfreeze the layers and finetune it.
+
+### Fine-tuning and differential learning rate annealing
+Now that we have a good final layer trained, we can try fine-tuning the other layers. To tell the learner that we want to unfreeze the remaining layers
+
+### Final Results
+Training loss - 0.026889    
+Validation Accuracy - 0.992
+
+### Confusion Matrix
+![confusionmatrix](https://user-images.githubusercontent.com/19996897/39518681-875e0048-4e21-11e8-938e-45a8661ad92e.PNG)
+
+
+
+
+
+
